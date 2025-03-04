@@ -1,0 +1,13 @@
+{
+  "name": "hpkv-range-queries-example",
+  "version": "1.0.0",
+  "description": "Example of using HPKV range queries in JavaScript",
+  "main": "hpkv_range_queries_example.js",
+  "scripts": {
+    "start": "node hpkv_range_queries_example.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.1"
+  }
+} 
