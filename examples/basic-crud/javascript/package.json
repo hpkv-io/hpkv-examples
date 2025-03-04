@@ -1,0 +1,14 @@
+{
+  "name": "hpkv-example",
+  "version": "1.0.0",
+  "description": "HPKV CRUD Example in JavaScript",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "node-fetch": "^3.3.0"
+  }
+} 
