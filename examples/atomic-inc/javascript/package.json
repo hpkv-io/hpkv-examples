@@ -1,0 +1,14 @@
+{
+  "name": "hpkv-atomic-increment-example",
+  "version": "1.0.0",
+  "description": "Example of atomic increment using HPKV",
+  "main": "atomic_increment.js",
+  "type": "module",
+  "scripts": {
+    "start": "node atomic_increment.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.1"
+  }
+} 
