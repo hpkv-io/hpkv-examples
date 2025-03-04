@@ -11,6 +11,15 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+type OperationCode int
+
+const (
+	Get OperationCode = iota + 1
+	Insert
+	Update
+	Delete
+)
+
 type HPKVWebSocketClient struct {
 	conn            *websocket.Conn
 	url             string
@@ -19,10 +28,10 @@ type HPKVWebSocketClient struct {
 }
 
 type Message struct {
-	Op        int         `json:"op"`
-	Key       string      `json:"key"`
-	Value     interface{} `json:"value,omitempty"`
-	MessageID uint64      `json:"messageId"`
+	Op        OperationCode `json:"op"`
+	Key       string        `json:"key"`
+	Value     interface{}   `json:"value,omitempty"`
+	MessageID uint64        `json:"messageId"`
 }
 
 type Response struct {
@@ -123,7 +132,7 @@ func (c *HPKVWebSocketClient) Create(key string, value interface{}) error {
 	}
 
 	message := Message{
-		Op:    2,
+		Op:    Insert,
 		Key:   key,
 		Value: jsonValue,
 	}
@@ -142,7 +151,7 @@ func (c *HPKVWebSocketClient) Create(key string, value interface{}) error {
 
 func (c *HPKVWebSocketClient) Read(key string) (interface{}, error) {
 	message := Message{
-		Op:  1,
+		Op:  Get,
 		Key: key,
 	}
 
@@ -201,7 +210,7 @@ func (c *HPKVWebSocketClient) Update(key string, value interface{}, partialUpdat
 	}
 
 	message := Message{
-		Op:    2, // Always use full update
+		Op:    Insert, // Always use full update
 		Key:   key,
 		Value: jsonValue,
 	}
@@ -220,7 +229,7 @@ func (c *HPKVWebSocketClient) Update(key string, value interface{}, partialUpdat
 
 func (c *HPKVWebSocketClient) Delete(key string) error {
 	message := Message{
-		Op:  4,
+		Op:  Delete,
 		Key: key,
 	}
 

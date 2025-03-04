@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace HPKV.Examples.WebSocket
 {
+    public enum OperationCode
+    {
+        Get = 1,
+        Insert = 2,
+        Update = 3,
+        Delete = 4
+    }
+
     public class HPKVWebSocketClient : IDisposable
     {
         private readonly ClientWebSocket _webSocket;
@@ -102,7 +110,7 @@ namespace HPKV.Examples.WebSocket
         {
             try
             {
-                var message = new { op = 2, key, value = JsonSerializer.Serialize(value) };
+                var message = new { op = OperationCode.Insert, key, value = JsonSerializer.Serialize(value) };
                 await SendMessageAsync(message);
                 return true;
             }
@@ -117,7 +125,7 @@ namespace HPKV.Examples.WebSocket
         {
             try
             {
-                var message = new { op = 1, key };
+                var message = new { op = OperationCode.Get, key };
                 var response = await SendMessageAsync(message);
                 
                 if (response.TryGetProperty("value", out var value))
@@ -160,7 +168,7 @@ namespace HPKV.Examples.WebSocket
                     }
                 }
 
-                var message = new { op = 2, key, value = JsonSerializer.Serialize(value) };
+                var message = new { op = OperationCode.Insert, key, value = JsonSerializer.Serialize(value) };
                 await SendMessageAsync(message);
                 return true;
             }
@@ -175,7 +183,7 @@ namespace HPKV.Examples.WebSocket
         {
             try
             {
-                var message = new { op = 4, key };
+                var message = new { op = OperationCode.Delete, key };
                 await SendMessageAsync(message);
                 return true;
             }

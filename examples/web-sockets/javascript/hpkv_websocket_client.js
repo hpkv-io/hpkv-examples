@@ -1,5 +1,12 @@
 const WebSocket = require('ws');
 
+const OperationCode = Object.freeze({
+    GET: 1,
+    INSERT: 2,
+    UPDATE: 3,
+    DELETE: 4
+});
+
 class HPKVWebSocketClient {
     constructor(baseUrl, apiKey) {
         this.baseUrl = baseUrl.replace(/^http/, 'ws');
@@ -81,7 +88,7 @@ class HPKVWebSocketClient {
     async create(key, value) {
         try {
             const message = {
-                op: 2,
+                op: OperationCode.INSERT,
                 key,
                 value: typeof value === 'string' ? value : JSON.stringify(value)
             };
@@ -97,7 +104,7 @@ class HPKVWebSocketClient {
     async read(key) {
         try {
             const message = {
-                op: 1,
+                op: OperationCode.GET,
                 key
             };
             
@@ -120,7 +127,7 @@ class HPKVWebSocketClient {
     async update(key, value, partialUpdate = false) {
         try {
             const message = {
-                op: partialUpdate ? 3 : 2,
+                op: partialUpdate ? OperationCode.UPDATE : OperationCode.INSERT,
                 key,
                 value: typeof value === 'string' ? value : JSON.stringify(value)
             };
@@ -136,7 +143,7 @@ class HPKVWebSocketClient {
     async delete(key) {
         try {
             const message = {
-                op: 4,
+                op: OperationCode.DELETE,
                 key
             };
             

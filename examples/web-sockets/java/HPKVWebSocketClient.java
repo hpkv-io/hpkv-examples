@@ -16,6 +16,23 @@ public class HPKVWebSocketClient extends WebSocketClient {
     private final AtomicInteger messageId;
     private final Map<Integer, CompletableFuture<Map<String, Object>>> responseFutures;
 
+    public enum OperationCode {
+        GET(1),
+        INSERT(2),
+        UPDATE(3),
+        DELETE(4);
+
+        private final int value;
+
+        OperationCode(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     public HPKVWebSocketClient(String serverUri, String apiKey) throws Exception {
         super(new URI(serverUri + "/ws?apiKey=" + apiKey));
         this.objectMapper = new ObjectMapper();
@@ -76,7 +93,7 @@ public class HPKVWebSocketClient extends WebSocketClient {
     public CompletableFuture<Boolean> create(String key, Object value) {
         try {
             Map<String, Object> message = Map.of(
-                "op", 2,
+                "op", OperationCode.INSERT.getValue(),
                 "key", key,
                 "value", value instanceof String ? value : objectMapper.writeValueAsString(value)
             );
@@ -92,7 +109,7 @@ public class HPKVWebSocketClient extends WebSocketClient {
 
     public CompletableFuture<Object> read(String key) {
         Map<String, Object> message = Map.of(
-            "op", 1,
+            "op", OperationCode.GET.getValue(),
             "key", key
         );
         
@@ -112,7 +129,7 @@ public class HPKVWebSocketClient extends WebSocketClient {
     public CompletableFuture<Boolean> update(String key, Object value, boolean partialUpdate) {
         try {
             Map<String, Object> message = Map.of(
-                "op", partialUpdate ? 3 : 2,
+                "op", partialUpdate ? OperationCode.UPDATE.getValue() : OperationCode.INSERT.getValue(),
                 "key", key,
                 "value", value instanceof String ? value : objectMapper.writeValueAsString(value)
             );
@@ -128,7 +145,7 @@ public class HPKVWebSocketClient extends WebSocketClient {
 
     public CompletableFuture<Boolean> delete(String key) {
         Map<String, Object> message = Map.of(
-            "op", 4,
+            "op", OperationCode.DELETE.getValue(),
             "key", key
         );
         

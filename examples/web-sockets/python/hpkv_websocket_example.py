@@ -7,7 +7,15 @@ import asyncio
 import websockets
 import ssl
 from typing import Any, Dict, Optional, Union
+from enum import Enum
 from dotenv import load_dotenv
+
+class OperationCode(Enum):
+    """Enumeration of HPKV WebSocket operation codes."""
+    GET = 1
+    INSERT = 2
+    UPDATE = 3
+    DELETE = 4
 
 class HPKVWebSocketClient:
     def __init__(self, base_url: str = None, api_key: str = None):
@@ -120,7 +128,7 @@ class HPKVWebSocketClient:
         """Create a new key-value pair."""
         try:
             message = {
-                "op": 2,  # Insert operation
+                "op": OperationCode.INSERT.value,  # Insert operation
                 "key": key,
                 "value": self._serialize_value(value)
             }
@@ -136,7 +144,7 @@ class HPKVWebSocketClient:
         """Read a value by key."""
         try:
             message = {
-                "op": 1,  # Get operation
+                "op": OperationCode.GET.value,  # Get operation
                 "key": key
             }
             
@@ -157,7 +165,7 @@ class HPKVWebSocketClient:
         """Update an existing key-value pair."""
         try:
             message = {
-                "op": 3 if partial_update else 2,  # Update or Insert operation
+                "op": OperationCode.UPDATE.value if partial_update else OperationCode.INSERT.value,  # Update or Insert operation
                 "key": key,
                 "value": self._serialize_value(value)
             }
@@ -173,7 +181,7 @@ class HPKVWebSocketClient:
         """Delete a key-value pair."""
         try:
             message = {
-                "op": 4,  # Delete operation
+                "op": OperationCode.DELETE.value,  # Delete operation
                 "key": key
             }
             
