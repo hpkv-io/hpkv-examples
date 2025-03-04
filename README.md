@@ -6,13 +6,51 @@ This repository contains example code with HPKV in multiple programming language
 
 ```
 examples/
-└── basic-crud/
-    ├── csharp/      # C# example using .NET
-    ├── go/          # Go example
-    ├── java/        # Java example
-    ├── javascript/  # JavaScript example using Node.js
-    └── python/      # Python example
+├── atomic-inc/      # Atomic increment operations
+├── basic-crud/      # Basic CRUD operations
+├── range-queries/   # Range query operations
+└── web-sockets/     # WebSocket-based operations
 ```
+
+Each example category is available in multiple programming languages:
+- C# (.NET)
+- Go
+- Java
+- JavaScript (Node.js)
+- Python
+
+## Example Categories
+
+### 1. Basic CRUD Operations
+Demonstrates fundamental Create, Read, Update, and Delete operations with HPKV.
+- Create new records
+- Read existing records
+- Update record values
+- Delete records
+- Verify operations
+
+### 2. Atomic Increment Operations
+Shows how to perform atomic increment/decrement operations on numeric values.
+- Create a counter
+- Increment values atomically
+- Decrement values atomically
+- Handle concurrent operations safely
+
+### 3. Range Queries
+Demonstrates how to efficiently query multiple records within a key range.
+- Create sample records with sequential keys
+- Perform basic range queries
+- Use range queries with limits
+- Filter results based on record values
+
+### 4. WebSocket Operations
+Shows how to use HPKV's WebSocket API for real-time operations.
+- WebSocket-based communication
+- Full CRUD operations support
+- Automatic reconnection handling
+- Message correlation
+- SSL/TLS support
+- API key authentication
 
 ## Prerequisites
 
@@ -27,6 +65,12 @@ Before running any of the examples, you'll need:
    - JavaScript: Node.js 16 or later
    - Python: Python 3.7 or later
 
+## Setup
+
+1. Clone this repository
+2. Navigate to your chosen example and language
+3. Follow the setup instructions in the example's README.md
+4. Configure your HPKV credentials (API key and base URL)
 
 ## Additional Resources
 
