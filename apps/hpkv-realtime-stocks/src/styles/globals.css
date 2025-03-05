@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Custom styles for HPKV theme */
+.hpkv-card {
+  @apply bg-gray-800 rounded-lg shadow-lg border border-gray-700;
+}
+
+.hpkv-button {
+  @apply bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+}
+
+.hpkv-select {
+  @apply bg-gray-800 border-gray-700 text-gray-100 rounded-lg focus:ring-purple-500 focus:border-purple-500;
+}

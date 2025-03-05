@@ -1,0 +1,25 @@
+{
+  "name": "hpkv-realtime-stocks",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.2.1",
+    "recharts": "^2.12.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.31",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.1",
+    "@eslint/eslintrc": "^3"
+  }
+}
