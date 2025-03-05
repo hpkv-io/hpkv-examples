@@ -1,6 +1,6 @@
 # HPKV Examples
 
-This repository contains example code with HPKV in multiple programming languages.
+This repository contains example code with [HPKV](https://hpkv.io) in multiple programming languages.
 
 ## Structure
 
